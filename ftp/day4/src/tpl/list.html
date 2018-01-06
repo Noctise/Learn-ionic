@@ -1,0 +1,22 @@
+<!--<h1>这是list页面</h1>-->
+
+<ion-refresher on-refresh="doRefresh()">
+
+</ion-refresher>
+
+<button ng-click="jump('myDetail',{count:30})">
+  clickMe
+</button>
+<a href="#/detail/40">点击跳转到详情页并传参</a>
+
+<ul class="list list-inset">
+  <li class="item"
+      ui-sref="myDetail({count:20})"
+      ng-repeat="tmp in list track by $index">
+    {{tmp}}
+  </li>
+</ul>
+
+<ion-infinite-scroll on-infinite="loadMore()">
+
+</ion-infinite-scroll>

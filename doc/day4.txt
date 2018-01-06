@@ -1,0 +1,33 @@
+一、使用uiRouter跳转并传参？
+
+①明确发送、接收
+②配置接收方的状态所对应的url
+③$stateParams接收参数
+④发送参数
+
+
+list->detail 跳转是将当前列表项的下标发给detail
+①发送 list 接收 detail
+②配置接收方允许接收参数
+ .state('myDetail',{
+        url:'/detail',
+        templateUrl:'tpl/detail.html'
+      })
+	===>
+ .state('myDetail',{
+			url:'/detail/:count',
+			templateUrl:'tpl/detail.html'
+		})
+③注入$stateParams
+④发送参数
+ui-sref="myDetail({count:20})"
+$state.go('myDetail',{count:30});
+a href='#/detail/40'
+
+注意事项：参数的名称要和配置状态时参数的名称是要保持一致的。
+
+二、实现路由嵌套（代码片段的嵌套）
+①在父代码片段指定一个uiView
+②在创建子代码片段
+③配置状态
+给子代码片段状态对应的设置对象中，要添加一个parent属性，该值是父代码片段对应的状态。

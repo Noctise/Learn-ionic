@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <script src="js/ionic.bundle.js"></script>
+  <title></title>
+</head>
+<body ng-controller="bodyCtrl">
+
+<ion-header-bar>
+  <h1 class="title">header</h1>
+</ion-header-bar>
+
+<ion-content>
+  <!-- 指定一个容器盛放代码片段-->
+  <ui-view></ui-view>
+</ion-content>
+
+<ion-footer-bar>
+  <h1 class="title">footer</h1>
+</ion-footer-bar>
+
+<script>
+  var app = angular.module('myApp',['ionic']);
+
+  //配置状态机
+  app.config(function ($stateProvider,$urlRouterProvider) {
+    $stateProvider
+      .state('myList',{
+        url:'/list',
+        templateUrl:'tpl/list.html',
+        controller:'listCtrl'
+      })
+      .state('myDetail',{
+        url:'/detail/:count',
+        templateUrl:'tpl/detail.html',
+        controller:'detailCtrl'
+      })
+      .state('myLogin',{
+        url:'/login',
+        templateUrl:'tpl/login.html',
+        controller:'loginCtrl'
+      })
+    $urlRouterProvider.otherwise('/list');
+  });
+
+  app.controller('bodyCtrl',['$scope','$state', function ($scope,$state) {
+    $scope.jump = function (desState,args) {
+      $state.go(desState,args);
+    }
+  }])
+
+
+  app.controller('listCtrl',['$scope','$state',
+    function ($scope,$state) {
+      $scope.list=[];
+      for(var i=0;i<20;i++)
+      {
+        $scope.list.push(
+          Math.floor(Math.random()*20))
+      }
+
+      $scope.doRefresh = function () {
+        $scope.list.unshift(100);
+        $scope.$broadcast(
+          'scroll.refreshComplete');
+      }
+
+      $scope.loadMore = function () {
+        $scope.list.push(33);
+        $scope.$broadcast(
+          'scroll.infiniteScrollComplete')
+      }
+
+    }
+  ]);
+
+  app.controller('loginCtrl',
+    ['$scope','$ionicPopup',
+      function ($scope,$ionicPopup) {
+
+        $scope.showConfirm = function () {
+          $ionicPopup.confirm({
+            template:'登录成功',
+            title:'请确认'
+          })
+        }
+
+      }
+    ])
+
+  app.controller('detailCtrl',
+    ['$scope','$stateParams',
+      function ($scope,$stateParams) {
+        console.log($stateParams);
+        $scope.result = $stateParams.count;
+      }
+    ])
+
+</script>
+
+</body>
+</html>

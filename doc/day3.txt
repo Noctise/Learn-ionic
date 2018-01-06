@@ -1,0 +1,133 @@
+学习安排
+1、学习ionic模块，基于angularJS封装的指令和服务
+2、uiRouter 第三方库 处理路由的
+
+一、Ionic中基于ng的扩展
+1、ionHeaderBar ionFooterBar
+align-title：left/right/center
+指定标题的对齐方式
+
+2、ionRefresher
+添加一个下拉刷新组件
+步骤1：将ionRefresher写在ionContent的第一个子元素
+步骤2：指定刷新时的处理函数 on-refresh
+步骤3：在处理函数中，完成数据的操作之后，要发出广播 $scope.$broadcast('scroll.refreshComplete');
+
+3、ionInfiniteScroll
+添加一个上拉加载更多的组件
+步骤1：将ionInfiniteScroll写在ionContent的最后一个子元素
+步骤2：指定刷新时的处理函数 on-infinite
+步骤3：在处理函数中，完成数据的操作之后，要发出广播 $scope.$broadcast('scroll.infiniteScrollComplete');
+属性:
+immediate-check 立即检查 用来检查当页面首次加载时是否还有空余的位置加载更多数据
+
+练习：实现一个列表，支持下拉刷新（将数组插入列表头部）、上拉加载更多（将数组插入列表底部）
+
+
+4、$ionicScrollDelegate
+提供了一些方法 帮助我们实现对于滚动的设置
+scrollTop/scrollBottom/scrollTo/getScrollPosition
+
+5、ionTabs
+<ion-tabs>
+	<ion-tab title="" icon="" ></ion-tab>
+</ion-tabs>
+
+6、侧边栏菜单
+<ion-side-menu>
+	<ion-side-menu-content>	</ion-side-menu-content>
+
+	<ion-side-menu side='left/right'>
+	</ion-side-menu>
+</ion-side-menu>
+
+操作侧边栏菜单的方式：
+$ionicSideMenuDelegate.toggleLeft/toggleRight()
+menu-toggle
+menu-close
+
+7、窗口
+①$ionicActionSheet 操作选型比较多 $ionicActionSheet.show({
+		buttons:[],
+		buttonClicked:func,
+		cancelText:'',
+		cancel:func,
+		destructiveText:'',
+		destructiveButtonClicked:func
+	})
+
+②$ionicPopup 弹窗
+alert/confirm/prompt
+
+③$ionicLoading 加载中的窗口
+$ionicLoading.show()/hide() 显示和隐藏
+
+④modal 模态窗 实现自定义窗口内容和样式
+
+
+二、uiRouter
+
+https://ui-router.github.io/
+
+ngRoute实现SPA的使用：
+1、基本步骤
+①引入angular-route.js
+②创建自定义模块指定依赖ngRoute
+③ngView
+④创建代码片段
+⑤配置路由词典
+	app.config(function($routeProvider){
+		$routeProvider
+		.when('/kflStart',{
+			templateUrl:'',
+			controller:''
+		})
+		.otherwise({redirectTo:'/kflStart'})
+	})
+2、跳转
+$location.path()
+a href='#/kflStart'
+修改地址栏
+
+3、传参
+①发送 接收
+②配置接收方的路由地址
+when('/kflMain') ==> when('/kflMain/:id')
+③$routeParams.id
+④发送参数
+
+
+uiRouter实现SPA的使用：
+1、基本步骤
+①引入angular-ui-router.js
+②创建自定义模块指定依赖ui.router
+③uiView
+④创建代码片段
+⑤配置状态机
+app.config(
+function($stateProvider,$urlRouterProvider){
+	$stateProvider
+		.state('stateName',{
+			url:'/urlName',
+			templateUrl:'tpl/***.html'
+		});
+	
+	$urlRouterProvider.otherwise('/urlName');
+})
+
+2、基本跳转
+js : $state.go();
+a href="#/urlName"
+ ui-sref
+
+
+每日一练：
+
+通过uiRouter来实现一个SPA应用程序，有3个代码片段
+list/detail/login
+
+list:有一个列表，支持下拉刷新和上拉加载更多，点击列表项跳转到detail
+
+detail: 下单按钮，点击跳转到login
+
+login：指定一个按钮（点击显示登陆成功的确认窗口），一个超链接（点击跳转到list）

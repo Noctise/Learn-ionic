@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <!-- meta:vp -->
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <script src="js/ionic.bundle.js"></script>
+  <title></title>
+</head>
+<body ng-controller="bodyCtrl">
+
+<ion-header-bar>
+  <h1 class="title">header</h1>
+</ion-header-bar>
+
+<ion-content>
+  <!-- 指定盛放代码片段的容器-->
+  <ui-view></ui-view>
+
+</ion-content>
+
+<ion-footer-bar>
+  <h1 class="title">footer</h1>
+</ion-footer-bar>
+
+<script>
+  var app = angular.module('myApp', ['ionic']);
+
+  //配置状态机
+  app.config(function ($stateProvider, $urlRouterProvider) {
+    //添加状态
+    //state方法两个参数，第一个参数是状态的名称，第二参数是配置对象
+    $stateProvider
+      .state('myLogin', {
+        url: '/kflLogin',
+        templateUrl: 'tpl/login.html'
+      })
+      .state('myRegister', {
+        url: '/kflRegister',
+        templateUrl: 'tpl/register.html'
+      });
+    //在otherwise方法参数是要默认跳转的url
+    $urlRouterProvider.otherwise('/kflLogin');
+
+  });
+
+
+  app.controller('bodyCtrl', ['$scope', '$state',
+    function ($scope, $state) {
+      $scope.jump = function (desState) {
+        $state.go(desState);
+      }
+    }
+  ])
+
+
+</script>
+</body>
+</html>

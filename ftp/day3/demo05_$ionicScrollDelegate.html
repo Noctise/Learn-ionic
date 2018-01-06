@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <!-- meta:vp -->
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <script src="js/ionic.bundle.js"></script>
+  <title></title>
+</head>
+<body ng-controller="myCtrl">
+
+<ion-header-bar>
+  <h1 class="title">header</h1>
+</ion-header-bar>
+
+<ion-content>
+  <ul class="list list-inset">
+    <li class="item" ng-repeat="myItem in myList">
+      {{myItem}}
+    </li>
+  </ul>
+</ion-content>
+
+<ion-footer-bar>
+  <button
+    ng-click="goToTop()"
+    class="button button-small button-balanced">
+    top
+  </button>
+  <button
+    ng-click="savePos()"
+    class="button button-small button-energized">
+    save
+  </button>
+  <button
+    ng-click="restorePos()"
+    class="button button-small button-assertive">
+    restore
+  </button>
+  <h1 class="title">footer</h1>
+</ion-footer-bar>
+
+<script>
+  var app = angular.module('myApp', ['ionic']);
+  app.controller('myCtrl', ['$scope', '$ionicScrollDelegate',
+    function ($scope, $ionicScrollDelegate) {
+      $scope.myList = [];
+      //构造一个具有100条数据的数组
+      for (var i = 0; i < 100; i++) {
+        $scope.myList.push('test' + i);
+      }
+
+      $scope.goToTop = function () {
+        $ionicScrollDelegate.scrollTop(true);
+      }
+
+      //定义一个方法，用来保存当前滚动的位置
+      $scope.savePos = function () {
+        //得到当前滚动的位置
+        var result =
+          $ionicScrollDelegate.getScrollPosition();
+        console.log(result);
+        //保存到本地
+      }
+
+      //定义一个方法，用来滚动的指定位置
+      $scope.restorePos = function () {
+        $ionicScrollDelegate.scrollTo(
+          0,1600,true);
+      }
+
+    }])
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+  <link rel="stylesheet" href="css/ionic.css"/>
+  <script src="js/ionic.bundle.js"></script>
+  <title></title>
+</head>
+<body ng-controller="bodyCtrl">
+
+<ion-header-bar>
+  <h1 class="title">header</h1>
+</ion-header-bar>
+
+<ion-content>
+  <!-- 实现一个SPA，有两个代码片段，一个kflLogin,一个是kflMail-->
+
+  <ui-view></ui-view>
+
+</ion-content>
+
+<ion-footer-bar>
+  <h1 class="title">footer</h1>
+</ion-footer-bar>
+
+
+<script>
+  var app = angular.module('myApp',['ionic']);
+
+  app.config(
+    function ($stateProvider,$urlRouterProvider) {
+    $stateProvider
+      .state('login',{
+        url:'/login',
+        templateUrl:'tpl/kflLogin.html'
+      })
+      .state('mail',{
+        url:'/mail',
+        templateUrl:'tpl/kflMail.html',
+        controller:'mailCtrl'
+      })
+      .state('inbox',{
+        url:"/inbox",
+        templateUrl:'tpl/inbox.html',
+        parent:'mail'
+      })
+      .state('outbox',{
+        url:"/outbox",
+        templateUrl:'tpl/outbox.html',
+        parent:'mail'
+      })
+    $urlRouterProvider.otherwise('/login');
+  });
+
+  app.controller('bodyCtrl',['$scope','$state',
+    function ($scope,$state) {
+      $scope.jump = function (desState,args) {
+        $state.go(desState,args);
+      }
+    }
+  ]);
+
+  app.controller('mailCtrl',
+    ['$scope','$ionicLoading',
+      function ($scope,$ionicLoading) {
+        console.log('mailCtrl func is called');
+
+        $scope.loadData = function (desState) {
+
+          //显示一个2s的加载更多的窗口
+          $ionicLoading.show({
+            template:'正在加载数据中...',
+            duration:2000
+          })
+
+          //2s之后，触发状态跳转
+          //$timeout
+          $scope.jump(desState);
+
+        }
+
+      }
+    ])
+
+
+</script>
+
+</body>
+</html>

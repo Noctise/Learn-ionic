@@ -1,0 +1,120 @@
+
+一、移动端课程：
+1、hybridApp基本工作原理
+2、3
+ionic（样式类、基于ng的扩展的服务和指令）
+4、5
+移动端app实践
+6、7 zeptojs
+8、phoneGap
+
+二、移动端的开发模式
+1、WebApp
+通过前端技术（html/css/js），可以运行在移动端浏览器中的网页应用程序都称之为WebApp
+
+2、NativeApp
+Android(java/kotlin)/iOS(oc/swift)/WP/BB 原生应用程序
+借助于SDK（software develop kit）中提供的组件和服务 来编程 所生成的应用程序称之为nativeApp
+
+3、HybridApp
+借助于前端技术和原生技术来开发生成的可以安装在手机上的app就称之为HybridApp
+
+如何来实现一个hybridApp？
+
+三、搭建Android的开发环境
+国外的VPN服务：
+https://github.com/getlantern/lantern
+
+https://github.com/kunyashaw/
+
+https://github.com/stormzhang/free-programming-books
+http://www.androiddevtools.cn/
+国内和google官方镜像保持一致的，下载android开发需要用到的任何工具
+
+1、安装JDK(java develop kit)
+	
+	一直点击next
+	
+2、配置SDK
+	方式1：单独下载AndroidStudio，需要配合着构建工具gradle,配置sdk
+	方式2：直接下载ADT(Android develop tools集成了sdk\eclipse)
+
+注意事项：
+任何文件夹、文件都不要起中文名字
+
+四、介绍通过eclipse创建Android工程的基本步骤
+
+创建模拟器：
+①命名
+testPhone
+②选中4寸的设备
+③backCamera
+设置emulated
+④指定SD 512m
+
+
+创建一个Android项目并运行：
+file->new->Android Application Project->配置application name以及 package name->next->配置图标-》next->finish
+
+选中项目，点击右键，run as ->Android Application Project
+
+注意事项：
+1、Acitivty not started,its current task has been brount to the front
+只是一个警告，没关系
+2、failed to install ***.apk to emulator *** ,timeout
+提示安装因为超时失败了，解决方案：重启eclipse和模拟器
+3、配置字体大小
+window -> prefrences -> general ->appearance ->basic -> text font
+
+ipa iOS可以安装在手机中的应用程序。
+
+从点击运行到安装到真实的手机或者模拟器过程：
+①run as android application
+编译 打包 生成一个apk结尾的文件
+②通过adb服务 将文件从pc传输到手机或者模拟器
+adb:android debug bridge
+③安装到手机并运行
+
+一个Android工程的编写方式：
+通过修改layout目录下的xml文件指定要显示的内容视图，通过src目录下的java文件指定业务逻辑
+
+目录信息总结：
+src 存储的java文件
+gen 自动生成的文件
+android4.2.2 sdk文件
+assets 存储前端代码和一些不希望被处理的文件
+bin 生成的apk格式的安装包
+libs 存储的需要用到的第三方的jar包
+res 存储的图片、布局文件、字符串等配置文件
+AndroidManifest.xml 清单文件 记录的版本号、全选、图标。。。
+
+五、如何实现一个HybridApp？
+
+1、基本步骤
+①编写前端代码，测试一下功能是否ok
+②创建一个Android项目
+③将前端代码拷贝到assets目录
+④如何加载html文件
+	4.1 创建一个webView原生组件
+			WebView wv = 
+			new WebView(getApplicationContext());
+	4.2 载入指定的页面
+			wv.loadUrl("");
+	4.3 设置wv为app的内容视图
+			setContentView(wv);
+
+
+2、实现一个hybridApp ，显示一个p
+
+3、练习：
+功能：点击按钮 隐藏段落
+要求：实现一个hybridApp
+
+①编写前端代码，保证功能没问题
+②创建一个Android项目
+③将代码拷贝到Android项目的assets目录
+④通过webView载入指定的页面
+
+
+
+

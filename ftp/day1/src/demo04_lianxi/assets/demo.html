@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+
+<p id="pid">这是一个段落</p>
+<button onclick="hideParagraph()">点我隐藏段落</button>
+
+<script>
+  function hideParagraph(){
+    console.log('it is a test');
+    //找到段落将它隐藏掉
+    document.getElementById('pid').style.visibility='hidden';
+  }
+</script>
+
+</body>
+</html>

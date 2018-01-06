@@ -1,0 +1,24 @@
+<h1>这是邮箱主页面</h1>
+
+<!--ionic grid:row col-->
+
+<div class="row">
+  <div class="col col-25">
+    <ul class="list list-inset">
+      <li
+       ng-click="loadData('inbox')" class="item">
+        收件箱
+      </li>
+      <li
+       ng-click="loadData('outbox')" class="item">
+        发件箱
+      </li>
+      <li class="item">草稿箱</li>
+    </ul>
+  </div>
+  
+  <div class="col col-offset-10 balanced-bg">
+    <!-- 指定盛放代码片段的容器-->
+    <ui-view></ui-view>
+  </div>
+</div>
